@@ -8,4 +8,4 @@ on:
 
 jobs:
     steps:
-      - uses: eatcala/.github/.github/workflows/docker.yml
+      - uses: ./.github/workflows/docker.yml

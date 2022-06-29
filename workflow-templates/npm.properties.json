@@ -1,5 +1,5 @@
 {
-    "name": "Docker build",
+    "name": "NPM build",
     "description": "Build and push to Cala's NPM registry (Github).",
     "categories": [
         "JavaScript",
