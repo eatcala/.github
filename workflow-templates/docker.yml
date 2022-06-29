@@ -1,0 +1,11 @@
+name: Docker
+
+on:
+  push:
+    branches: [ main, next, beta ]
+  pull_request:
+    branches: [ main, next, beta ]
+
+jobs:
+    steps:
+      - uses: ./.github/workflows/docker.yml
