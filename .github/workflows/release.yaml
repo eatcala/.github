@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
-          scope: '@dtnmr'
+          scope: '@eatcala'
       - run: |
           npm set-script prepare ""
           npm ci
