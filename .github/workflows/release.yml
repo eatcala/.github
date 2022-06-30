@@ -68,6 +68,8 @@ jobs:
           password: ${{ secrets.ci-token }}
       - name: Build and push
         id: docker_build
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.ci-token }}
         uses: docker/build-push-action@v3
         with:
           target: runner
