@@ -35,7 +35,7 @@ jobs:
       - name: Run semantic-release
         id: semantic
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.ci-token }}
           NODE_AUTH_TOKEN: ${{ secrets.ci-token }}
         run: |
           npx semantic-release
