@@ -31,11 +31,11 @@ jobs:
           scope: '@eatcala'
       - run: npm ci --ignore-scripts
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.ci-token }}
+          NODE_AUTH_TOKEN: ${{ github.token }}
       - name: Run semantic-release
         id: semantic
         env:
-          GH_TOKEN: ${{ secrets.ci-token }}
+          GH_TOKEN: ${{ github.token }}
           NODE_AUTH_TOKEN: ${{ secrets.ci-token }}
         run: |
           npx semantic-release
@@ -46,15 +46,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Publish Packages
+      - name: Configure NPM registry authentication
         run: |
           echo '//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}' > ${{ github.workspace }}/.npmrc
-          cat .npmrc
+          echo '${{ github.workspace }}'
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      - name: Docker meta
+      - name: Configure Docker image metadata
         id: meta
         uses: docker/metadata-action@v4
         with:
@@ -70,7 +70,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.ci-token }}
+          password: ${{ github.token }}
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v3
@@ -81,4 +81,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            NODE_AUTH_TOKEN=${{ secrets.ci-token }}
+            NODE_AUTH_TOKEN=${{ github.token }}
