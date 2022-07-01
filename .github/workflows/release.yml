@@ -31,7 +31,7 @@ jobs:
           scope: '@eatcala'
       - run: npm ci --ignore-scripts
         env:
-          NODE_AUTH_TOKEN: ${{ github.token }}
+          NODE_AUTH_TOKEN: ${{ secrets.ci-token }}
       - name: Run semantic-release
         id: semantic
         env:
