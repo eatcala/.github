@@ -82,4 +82,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            NODE_AUTH_TOKEN=${{ secrets.ci-token }}
+            NPM_TOKEN=${{ secrets.ci-token }}
