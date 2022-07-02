@@ -51,8 +51,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Configure NPM registry authentication
-        run: echo '//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}' > ${{ github.workspace }}/.npmrc
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
