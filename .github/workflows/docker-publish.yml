@@ -50,4 +50,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            NPM_TOKEN=${{ secrets.ci-token }}
+            NPM_TOKEN=${{ secrets.CI_TOKEN }}
