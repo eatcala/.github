@@ -1,53 +1,21 @@
-name: Release
+name: Docker Publish
 
 on:
   workflow_call:
     secrets:
       ci-token:
         required: true
+    inputs:
+      next-version:
+        description: 'The version number (semver) to tag the image with.'
+        required: true
+        type: string
 
 jobs:
-  npm:
-    outputs:
-      next-version: ${{ steps.semantic.outputs.nextVersion }}
-    name: npm release
+  docker-publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
       packages: write
-      issues: write
-      pull-requests: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@eatcala'
-      - run: npm ci --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.ci-token }}
-      - name: Run semantic-release
-        id: semantic
-        env:
-          GH_TOKEN: ${{ secrets.ci-token }}
-          NODE_AUTH_TOKEN: ${{ secrets.ci-token }}
-        run: |
-          npx semantic-release
-          
-  docker:
-    needs: npm
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      packages: write
-      issues: write
-      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -63,7 +31,7 @@ jobs:
           tags: |
             type=ref,event=branch
             type=ref,event=pr
-            type=semver,pattern={{version}},value=${{ needs.npm.outputs.next-version }}
+            type=semver,pattern={{version}},value=${{ inputs.next-version }}
             type=raw,value=gha-${{ github.run_id }}
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
       - name: Login to Github Container Registry
