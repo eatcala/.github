@@ -5,10 +5,10 @@ on:
     secrets:
       ci-token:
         required: true
-  outputs:
-    next-version:
-      description: "The next version number determined by semantic-release"
-      value: ${{ jobs.semantic-release.next-version }}
+    outputs:
+      next-version:
+        description: "The next version number determined by semantic-release"
+        value: ${{ jobs.semantic-release.next-version }}
 
 jobs:
   semantic-release:
