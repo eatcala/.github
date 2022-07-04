@@ -8,7 +8,7 @@ on:
     outputs:
       next-version:
         description: "The next version number determined by semantic-release"
-        value: ${{ jobs.semantic-release.next-version }}
+        value: ${{ jobs.semantic-release.outputs.next-version }}
 
 jobs:
   semantic-release:
