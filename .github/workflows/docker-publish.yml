@@ -3,7 +3,7 @@ name: Docker Publish
 on:
   workflow_call:
     secrets:
-      ci-token:
+      CI_TOKEN:
         required: true
     inputs:
       next-version:
