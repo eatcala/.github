@@ -10,6 +10,11 @@ on:
         description: 'The version number (semver) to tag the image with.'
         required: true
         type: string
+      publish:
+        description: 'Publish to docker registry'
+        required: false
+        type: boolean
+        default: true
 
 jobs:
   docker-publish:
@@ -43,7 +48,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v3
         with:
-          push: true
+          push: ${{ inputs.publish }}
           target: runner
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
