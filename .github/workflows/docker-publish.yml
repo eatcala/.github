@@ -8,7 +8,7 @@ on:
     inputs:
       next-version:
         description: 'The version number (semver) to tag the image with.'
-        required: true
+        required: false
         type: string
       publish:
         description: 'Publish to docker registry'
